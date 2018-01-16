@@ -1,0 +1,28 @@
+*
+{
+    box-sizing: border-box;
+}
+
+#goban table
+{
+    border: 1px solid black;
+    padding: 0;
+    margin: 0;
+    border-collapse: 0;
+    border-spacing: 0;
+}
+
+#goban tr
+{
+    margin: 0;
+    padding: 0;
+}
+
+#goban table tr td
+{
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+}
