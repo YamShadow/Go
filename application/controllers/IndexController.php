@@ -17,5 +17,27 @@ class IndexController extends CI_Controller {
                 )
             )
         ));
-	}
+    }
+    
+    public function renderGoban($size = null) {
+        if (isset($size) && in_array($size, ['9', '13']))
+            $renderSize = $size;
+        else $renderSize = 19;
+
+		$this->load->view('base', array(
+            'header' => array(
+                'css' => array(
+                    'style.css'
+                )
+            ),
+            'body' => 'go_board',
+            'footer' => array(
+                'js' => array(
+                    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+                    'script.js'
+                )
+            ),
+            'size_goban' => $renderSize
+        ));
+    }
 }
