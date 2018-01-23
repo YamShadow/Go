@@ -1,0 +1,20 @@
+{
+    "name": "ecv/goproject",
+    "description": "Projet de Go en POO PHP",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Florian Rambur",
+            "email": "flo.rambur@gmail.com"
+        },
+        {
+            "name": "Mathieu Nibas",
+            "email": "mathieu.nibas@gmail.com"
+        },
+        {
+            "name": "Jordan Juventin",
+            "email": "juv.jordan@hotmail.fr"
+        }
+    ],
+    "require": {}
+}
