@@ -7,7 +7,22 @@ $(function () {
 
     function play(pos) {
         // CALL AJAX
+        data = {
+            pos: pos,
+            player: (player) ? 'black' : 'white'
+        }
 
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function(data) {
+                console.log(data);        
+            },
+            error: function(statut, erreur) {
+                $('#error').html('Error');
+            }   
+        });
         // On success :
             // Si pas erreur : playStone
             // Si erreur : rien
@@ -37,7 +52,7 @@ $(function () {
     }
 
     // function playStone(x, y) {
-    //     var pos = '#'+x+'.'+y;
+    //     var pos = '#'+x+'_'+y;
 
     //     $(pos).toggleClass('pre-stone').toggleClass('stone');
     // }
@@ -48,9 +63,9 @@ $(function () {
     }
 
     // function removeStone(x, y) {
-    //     var pos = '#'+x+'.'+y;
+    //     var pos = '#'+x+'_'+y;
 
-    //     $(pos).toggleClass('pre-stone').toggleClass('stone');
+    //     $(pos).toggleClass('pre-stone stone');
     //     $(pos).removeClass('black').removeClass('white');
 
     //     if (player)

@@ -13,4 +13,6 @@
             echo $str;
         ?>
     </table>
+
+    <div id="error"></div>
 </div>
