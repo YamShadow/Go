@@ -8,7 +8,7 @@ class AjaxController extends CI_Controller {
     }
 	
 	public function index() {
-		var_dump($_POST['json']);
+		var_dump($_POST);
 	}
 
 

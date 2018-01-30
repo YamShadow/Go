@@ -7,15 +7,15 @@ $(function () {
 
     function play(pos) {
         // CALL AJAX
-        data = {
+        var data = {
             pos: pos,
             player: (player) ? 'black' : 'white'
         }
 
         $.ajax({
-            url: base_url+'AjaxController/index',
+            url: base_url+'index.php/AjaxController/index',
             type: 'POST',
-            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: data,
             success: function(data) {
                 console.log(data);        
