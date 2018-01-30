@@ -7,8 +7,8 @@ class AjaxController extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index($json) {
-		var_dump($json);
+	public function index() {
+		var_dump($_POST['json']);
 	}
 
 
