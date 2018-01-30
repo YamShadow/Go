@@ -48,8 +48,6 @@ class IndexController extends CI_Controller {
         else $renderSize = 19;
         $this->partie->setSessionInit($renderSize);
 
-        var_dump($this->session);
-
 		$this->load->view('base', array(
             'header' => array(
                 'css' => array(

@@ -37,14 +37,39 @@ $(function () {
 
         // RETOUR DE AJAX :
             /*
+                Envoi :
+                {
+                    pos: '@int_@int',
+                    player: 'black' / 'white'
+                }
 
-
-
+                Réception :
+                {
+                    etat: 'ok' / 'nok',
+                    message: 'ok' / @error,
+                    put: {
+                        x: @int,
+                        y: @int
+                    },
+                    remove: [
+                        {
+                            x: @int,
+                            y: @int
+                        },
+                        {
+                            @@ BIS REPETITAM @@
+                        }
+                    ],
+                    count_white: @int,
+                    count_black: @int
+                }
 
 
 
             */
 
+        // Ecrire les pierres mangées par chaque joueur
+        
         // On change de joueur
         switchPlayer();
 

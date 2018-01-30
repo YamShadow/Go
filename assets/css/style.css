@@ -3,13 +3,23 @@
     box-sizing: border-box;
 }
 
+main
+{
+    display: grid;
+    grid-auto-columns: minmax(100px, auto);
+    grid-template-columns: repeat(3, auto);
+    background-color: rgb(242, 176, 109);
+    text-align: center;
+}
+
 #goban table
 {
-    border: 1px solid black;
     padding: 0;
     margin: 0;
     border-collapse: 0;
     border-spacing: 0;
+    border: 1px solid black;
+    margin: auto;
 }
 
 #goban tr
@@ -20,10 +30,14 @@
 
 #goban
 {
-    background-color: rgb(242, 176, 109);
-    width: auto;
     padding: 15px;
 }
+
+/* #goban table
+{
+    box-shadow: inset 25px 25px rgb(242, 176, 109),
+                inset -25px -25px rgb(242, 170, 109);
+} */
 
 .case
 {
@@ -31,12 +45,11 @@
     padding: 0;
     width: 25px;
     height: 25px;
-    border: 1px solid black;
+    background-image: url('../img/bg_plus.svg');
 }
 
 .case i
 {
-    text-align: center;
     width: 21px;
     height: 21px;
     margin: auto;
