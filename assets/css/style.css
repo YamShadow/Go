@@ -18,11 +18,51 @@
     padding: 0;
 }
 
-#goban table tr td
+#goban
+{
+    background-color: rgb(242, 176, 109);
+    width: auto;
+    padding: 15px;
+}
+
+.case
 {
     margin: 0;
     padding: 0;
     width: 25px;
     height: 25px;
     border: 1px solid black;
+}
+
+.case i
+{
+    text-align: center;
+    width: 21px;
+    height: 21px;
+    margin: auto;
+}
+
+.white
+{
+    color: white;
+}
+
+.black
+{
+    color: #212529;
+}
+
+.pre-stone
+{
+    opacity: 0;
+}
+
+.pre-stone:hover
+{
+    opacity: 0.8;
+}
+
+.stone
+{
+    opacity: 1;
 }

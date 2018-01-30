@@ -7,23 +7,23 @@
     <title>Jeu de Go</title>
 
     <?php 
-        function toAbsolute($link, $dir) {
+        function toAbsolute($link) {
             $regex = '#^https?:\/\/#i';
 
             if (preg_match($regex, $link)) return $link;
-            else return base_url('assets/'.$dir.'/'.$link);
+            else return base_url('assets/'.$link);
         }
 
         if (isset($header['css'])) {
             foreach ($header['css'] as $css) {
                 
-                echo '<link rel="stylesheet" href="'.toAbsolute($css, 'css').'">';
+                echo '<link rel="stylesheet" href="'.toAbsolute($css).'">';
             }
         }
 
         if (isset($header['js'])) {
             foreach ($header['js'] as $js) {
-                echo '<script src="'.toAbsolute($js, 'js').'"></script>';
+                echo '<script src="'.toAbsolute($js).'"></script>';
             }
         }
     ?>
@@ -37,7 +37,7 @@
 
         if (isset($footer['js'])) {
             foreach ($footer['js'] as $js) {
-                echo '<script src="'.toAbsolute($js, 'js').'"></script>';
+                echo '<script src="'.toAbsolute($js).'"></script>';
             }
         }
     ?>
