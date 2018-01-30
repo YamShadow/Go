@@ -16,3 +16,7 @@
 
     <div id="error"></div>
 </div>
+
+<script>
+    var base_url = "<?php echo base_url(); ?>";
+</script>

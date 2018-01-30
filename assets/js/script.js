@@ -13,6 +13,7 @@ $(function () {
         }
 
         $.ajax({
+            url: base_url+'AjaxController/index.php',
             type: 'POST',
             dataType: 'json',
             data: data,
