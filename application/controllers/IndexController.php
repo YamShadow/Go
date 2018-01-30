@@ -2,8 +2,25 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class IndexController extends CI_Controller {
+
+
+    /**
+     * Controlleur d'IndexController
+     */
+    function __construct(){
+        parent::__construct();
+        $this->load->model('Partie_model', 'partie');
+    }
+
+    /**
+     * Methode index
+     *
+     * @return void
+     */
 	public function index()
 	{
+
+        $this->go->log('test');
 		$this->load->view('base', array(
             'header' => array(
                 'css' => array(
@@ -19,10 +36,19 @@ class IndexController extends CI_Controller {
         ));
     }
     
+    /**
+     * renderGoban qui permet de faire le rendu du Goban
+     *
+     * @param [integer] $size
+     * @return void
+     */
     public function renderGoban($size = null) {
         if (isset($size) && in_array($size, ['9', '13']))
             $renderSize = $size;
         else $renderSize = 19;
+        $this->partie->setSessionInit($renderSize);
+
+        var_dump($this->session);
 
 		$this->load->view('base', array(
             'header' => array(
