@@ -11,17 +11,12 @@ Modifier le fichier /surcouche/data/client.json (notamment pour les paramètres 
 
 Voir les règles du go : https://fr.wikipedia.org/wiki/R%C3%A8gles_du_go.
 
-On a utilisé le Design pas terne MVC.
+On a utilisé le Design pas terne MVC. On s'est inspiré de Observer aussi, notamment pour le transit des infos au sein de la logique.
 
 ## TODO
 ### Pour le Front
-Il faut "décaler" les cases sur les intersections :
-    Arnaque moldave :
-        Il va s'agir de mettre un + sur toute la hauteur des .case
-        Puis on va poser un box-shadow qui va recouvrir la moitié des cases du bord. 
-        S'il le faut, on place les pierres avec un z-index > 0.
-
-Il faut faire l'AJAX
+Il faut faire le calback de réception de l'AJAX. 
+Il faut, si possible, cacher les bords du goban.
 
 ### Pour le Back
 Créer les classes et la logique
