@@ -9,7 +9,8 @@ class Partie_model extends CI_Model {
     /***** Fonctions principales *****/
 
     function setSessionInit($size){
-        $this->session->set_userdata('idPartie', '');
+        $idPartie = $this->initPartieBDD();
+        $this->session->set_userdata('idPartie', $idPartie);
         $this->session->set_userdata('datePartie', date('Y-m-d H:m:s'));
         $this->session->set_userdata('winner', '');
         $this->session->set_userdata('pierreJ1', 0);
@@ -32,6 +33,29 @@ class Partie_model extends CI_Model {
 
     function updateScoreSession($variable, $value){
         $this->session->set_userdata($variable, $value);
+    }
+
+    function initPartieBDD(){
+        $data = array(
+            'winner' => '',
+            'pierreJ1' => 0,
+            'pierreJ1' => 0,
+            'scoreJ1' => 0,
+            'scoreJ2' => 0
+        );
+
+        $this->db->insert('partie', $data);
+        $insert_id = $this->db->insert_id();
+
+        return  $insert_id;
+    }
+
+    function savePartie(){
+        $data = array();
+
+
+
+
     }
 
 
