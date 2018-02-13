@@ -20,3 +20,5 @@ Il faut, si possible, cacher les bords du goban.
 
 ### Pour le Back
 Créer les classes et la logique
+
+PENSER A COMMENTER LE CODE

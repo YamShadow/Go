@@ -10,6 +10,7 @@ class Goban_model extends CI_Model {
 
     public function merge(Groupe_model $g1, Group_model $g2) {
         // Permet de fusionner $g1 et $g2
+        $g1->merge($g2);
     }
 
     public function getGroupe($position) {
