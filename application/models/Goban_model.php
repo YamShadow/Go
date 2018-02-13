@@ -1,5 +1,7 @@
 <?php
 
+require_once('Groupe_model.php');
+
 class Goban_model extends CI_Model {
 
         /* Contient une collection de groupes de pierres.
@@ -15,5 +17,8 @@ class Goban_model extends CI_Model {
 
     public function getGroupe($position) {
         // Renvoie le groupe associé à l'intersection qui se trouve à $position
+        foreach ($groupes as $groupe) {
+            if ($groupe->isInGroupe($position)) return $groupe;
+        }
     }
 }
