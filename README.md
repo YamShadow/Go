@@ -27,4 +27,6 @@ Créer les classes et la logique
 Il faudra faire attention, car dans les modèles, les méthodes sont implémentées en prenant un paramètre $position. Or, ne sachant quelle forme prendrait ce paramètre, je ne l'ai pas parsé. Il faudra donc le faire lorsque le format aura été posé.
 Pour le moment : $position = array('x' => $x, 'y' => $y);
 
+Idem pour $color, je ne sais pas si je reçoit un booléen (true = noir) ou une string.
+
 PENSER A COMMENTER LE CODE

@@ -36,7 +36,7 @@ class Goban_model extends CI_Model {
     }
 
     public function getGroupesFromLiberty($position) {
-        // Renvoie le groupe associé à l'intersection qui se trouve à $position
+        // Renvoie les groupes qui comptent $position comme une de leurs libertés
         $ret = array();
 
         foreach ($groupes as $groupe) {
@@ -47,8 +47,12 @@ class Goban_model extends CI_Model {
     }
 
     public function unsetKoo() {
-        foreach ($goban as $pierre) {
-            $pierre->unsetKoo();
+        foreach ($groupes as $groupe) {
+            if ($groupe->unsetKoo()) return;
         }
+    }
+
+    public function addGroupe($stone) {
+        $this->groupes[] = new Groupe_model($stone);
     }
 }

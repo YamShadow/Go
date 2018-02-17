@@ -25,21 +25,54 @@ class Intersection_model extends CI_Model {
 
         if ($this->color == null) {     // Si aucune pierre n'est posée ici
             if (!$this->isKoo) {        // Si on est pas en kô
-                if (!empty($this->getLiberties()) || !empty($this->canKill())) {        // Si on a une liberté en jouant ici ou si on tue
+                if (!empty($this->getLiberties()) || !empty($kills = $this->canKill())) {        // Si on a une liberté en jouant ici ou si on tue
+                    // La pierre est jouée
                     $ret['put'] = $this->position;
                     $this->color = $color;
 
-                    // Suite du traitement
+                    // La pierre est affectée à un groupe vide
+                    $goban->addGroupe($this);
 
-                    // On a posé la pierre, donc on va tuer les groupes
-                    // Puis si notre pierre n'a tué qu'une pierre et est à présent un groupe unitaire avec une seule liberté
-                    // C'est qu'on est en kô
+                    // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
+                    // On cherche les groupes autour de la pierre par rapport à sa position
+                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']]))->isStone($color))
+                        $goban->merge($this->groupe, $s->getGroup());
 
-                    // Il faut donc tuer les pierres, compter le kô (en virant tous les autres kô précédent s'il y avait)
+                    if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']]))->isStone($color))
+                        $goban->merge($this->groupe, $s->getGroup());
+
+                    if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']-1)]))->isStone($color))
+                        $goban->merge($this->groupe, $s->getGroup());
+                    
+                    if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']+1)]))->isStone($color))
+                        $goban->merge($this->groupe, $s->getGroup());
+
+
+                    // On a posé la pierre, donc on tue les groupes (et on compte les pierres mortes)
+                    $deathCounter = 0;
+                    $ret['remove'] = array();
+                    foreach ($kills as $groupToKill) {
+                        $deathCounter += $groupToKill->getStoneNbr();
+                        $ret['remove'] = array_merge($ret['remove'], $groupToKill->getAllPositions());
+                        $groupToKill->die();
+                    }
+
+                    // Virer tous les autres kô précédents s'il y avait
+                    $goban->unsetKoo();
+
+                    // Puis si notre pierre n'a tué qu'une pierre et est à présent un groupe unitaire avec une seule liberté, c'est qu'on est en kô
+                    if (($deathCounter == 1) && ($this->groupe->getStoneNbr() == 1) && ($this->groupe->getLibertyNbr() == 1)) {
+                        $this->isKoo = true;
+                        $ret['koo'] = $this->position;
+                    }
+
                     // Ajouter les pierres tuées au compteur du joueur
-                    // Sauvegarder le coup dans la BDD
+                        // TODO switch la couleur pour ajouter au bon jouer
+                        // Rappel : J1 = noir et J2 = blanc
+                        // Je ne sais juste pas comment me parvient la couleur (booléen ou string)
 
-                    // Et faire le return en AJAX
+                    // Sauvegarder le coup dans la BDD
+                        // TODO utiliser le model de @Mathieu 
 
                 } else {
                     $ret['etat'] = 'nok';
@@ -67,16 +100,18 @@ class Intersection_model extends CI_Model {
         return $this->position;
     }
 
-    public function isStone() {
-        return !($this->color == null);
+    public function isStone($color = null) {
+        if ($color == null)
+            return $this->color != null;
+        else 
+            return $this->color == $color;
     }
 
-    public function setKoo() {
-        $this->isKoo = true;
-    }
-    
     public function unsetKoo() {
-        $this->isKoo = false;
+        if ($this->isKoo) {
+            $this->isKoo = false;
+            return true;
+        }
     }
 
     public function getLiberties() {
@@ -116,9 +151,18 @@ class Intersection_model extends CI_Model {
 
     public function die() {
         $this->color = null;
+        $this->groupe = null;
     }
 
     public function setColor($color) {
         $this->color = $color;
+    }
+
+    public function setGroup(Groupe_model $groupe) {
+        $this->groupe = $groupe;
+    }
+
+    public function getGroup() {
+        return $this->groupe;
     }
 }
