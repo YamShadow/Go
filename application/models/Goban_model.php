@@ -17,13 +17,38 @@ class Goban_model extends CI_Model {
     }
 
     public function getStone($position) {
-        return $goban[$position['x']][$position['y']];
+        if (isset($goban[$position['x']][$position['y']]))
+            return $goban[$position['x']][$position['y']];
+        else return false;
     }
 
-    public function getGroupe($position) {
+    public function putStone($position, $color) {
+        if (isset($goban[$position['x']][$position['y']]))
+            $goban[$position['x']][$position['y']]->setColor($color);
+        else return false;
+    }
+
+    public function getGroupeFromPos($position) {
         // Renvoie le groupe associé à l'intersection qui se trouve à $position
         foreach ($groupes as $groupe) {
             if ($groupe->isInGroupe($position)) return $groupe;
+        }
+    }
+
+    public function getGroupesFromLiberty($position) {
+        // Renvoie le groupe associé à l'intersection qui se trouve à $position
+        $ret = array();
+
+        foreach ($groupes as $groupe) {
+            if ($groupe->hasInLiberties($position)) $ret[] = $groupe;
+        }
+
+        return $ret;
+    }
+
+    public function unsetKoo() {
+        foreach ($goban as $pierre) {
+            $pierre->unsetKoo();
         }
     }
 }

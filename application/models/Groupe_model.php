@@ -9,15 +9,28 @@ class Groupe_model extends CI_Model {
     */
     
     private $pierres = array();
+    private $libertes = array();
+
+    public function __construct($stone) {
+        $this->pierres[] = $stone;
+
+        $this->libertes = $stone->getLiberties();
+    }
 
     public function merge(Groupe_model $g) {
+        if ($g == null) return false;
         // Permet de fusionner avec un autre groupe
         $this->pierres = array_merge($this->getStones(), $g->getStones());
+        $this->libertes = array_merge($this->getLiberties(), $g->getLiberties());
         unset($g);
     }
 
     public function getStones() {
         return $this->pierres;
+    }
+
+    public function getLiberties() {
+        return $this->libertes;
     }
 
     public function isInGroupe($position) {
@@ -27,9 +40,17 @@ class Groupe_model extends CI_Model {
         return false;
     }
 
+    public function hasInLiberties($position) {
+        foreach ($libertes as $pierre) {
+            if ($pierre->hasPosition($position)) return true;
+        }
+        return false;
+    }
+
     public function die() {
         foreach ($pierres as $p) {
             $p->die();
         }
+        $this->__destruct();
     }
 }

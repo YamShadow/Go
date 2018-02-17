@@ -17,6 +17,9 @@ On a utilisé le Design pas terne MVC. On s'est inspiré de Observer aussi, nota
 ### Pour le Front
 Il faut faire le calback de réception de l'AJAX. 
 Il faut, si possible, cacher les bords du goban.
+Il faut afficher un kô. Il s'agirait de mettre un triangle sur la case concernée et de virer la class .pre-stone pour que le hover ainsi que l'event listener ne fonctionnent pas.
+Il faut, de fait, prévoir de pouvoir supprimer un kô.
+
 
 ### Pour le Back
 Créer les classes et la logique
