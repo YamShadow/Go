@@ -21,7 +21,23 @@ class Intersection_model extends CI_Model {
     public function play($color) {
         // Toute la logique de pose de pierre
 
-        // Vérifier si c'est un kô, si il y a déjà une pierre, etc
+        if ($this->color == null) {     // Si aucune pierre n'est posée ici
+            if (!$this->isKoo) {        // Si on est pas en kô
+                // Reste de la logique
+            } else {
+                $ret = array(
+                    'etat' => 'nok',
+                    'message' => 'Case en kô.'
+                );
+                return $ret;
+            }
+        } else {
+            $ret = array(
+                'etat' => 'nok',
+                'message' => 'Case occupée.'
+            );
+            return $ret;
+        }
     }
     
     public function hasPosition($position) {
