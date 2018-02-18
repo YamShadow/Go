@@ -12,6 +12,21 @@ main
     text-align: center;
 }
 
+.error
+{
+    color: red;
+}
+
+.success
+{
+    color: green;
+}
+
+.info
+{
+    color: blue;
+}
+
 #goban table
 {
     padding: 0;

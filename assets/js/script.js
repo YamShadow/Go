@@ -7,21 +7,27 @@ $(function () {
 
     function play(pos) {
         // CALL AJAX
-        var data = {
+        var dataSent = {
             pos: pos,
             player: (player) ? 'black' : 'white'
         }
-
+        
         $.ajax({
             url: base_url+'index.php/AjaxController/index',
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: data,
+            data: dataSent,
+            // dataType: 'json',
             success: function(data) {
-                console.log(data);        
+                if (data.etat == 'ok') {
+                    putInfo(data);
+                    playStone(pos);
+                    switchPlayer();
+                } else 
+                    putError(data);
             },
             error: function(statut, erreur) {
-                $('#error').html('Error');
+                putError(erreur);
             }   
         });
         // On success :
@@ -33,7 +39,6 @@ $(function () {
             // removeStone 
 
 
-        playStone(pos);
 
         // RETOUR DE AJAX :
             /*
@@ -46,7 +51,7 @@ $(function () {
                 Réception :
                 {
                     etat: 'ok' / 'nok',
-                    message: 'ok' / @error,
+                    message: 'ok' / @string,
                     put: {
                         x: @int,
                         y: @int
@@ -60,6 +65,10 @@ $(function () {
                             @@ BIS REPETITAM @@
                         }
                     ],
+                    koo: {
+                        x: @int,
+                        y: @int
+                    },
                     count_white: @int,
                     count_black: @int
                 }
@@ -70,8 +79,6 @@ $(function () {
 
         // Ecrire les pierres mangées par chaque joueur
         
-        // On change de joueur
-        switchPlayer();
 
         // On error :
             // Rien
@@ -113,5 +120,23 @@ $(function () {
     function switchPlayer() {
         player = !player;
         $('.pre-stone').toggleClass('black').toggleClass('white');
+    }
+
+    function putError(msg) {
+        $('#msg').html(msg);
+        $('#msg').removeClass('success info');
+        $('#msg').addClass('error');
+    }
+
+    function putInfo(msg) {
+        $('#msg').html(msg);
+        $('#msg').removeClass('success error');
+        $('#msg').addClass('info');
+    }
+
+    function putSuccess(msg) {
+        $('#msg').html(msg);
+        $('#msg').removeClass('info error');
+        $('#msg').addClass('success');
     }
 });

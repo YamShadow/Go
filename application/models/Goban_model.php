@@ -11,6 +11,10 @@ class Goban_model extends CI_Model {
     private $groupes = array();
     private $goban = array();
 
+    public function __construct($array) {
+        $this->goban = $array;
+    }
+
     public function merge(Groupe_model $g1, Group_model $g2) {
         // Permet de fusionner $g1 et $g2
         $g1->merge($g2);
@@ -54,5 +58,23 @@ class Goban_model extends CI_Model {
 
     public function addGroupe($stone) {
         $this->groupes[] = new Groupe_model($stone);
+    }
+
+    public function play($pos, $color) {
+        // On reçoit la position sous form 'x_y', donc on doit la parser
+        $regex = '#(\d+)_(\d+)#';
+        $matches = array();
+
+        $n = preg_match($regex, $ops, $matches);
+
+        $position = array(
+            'x' => $matches[1],
+            'y' => $matches[2]
+        );
+
+        // On joue la pierre
+        $ret = $goban[$position['x']][$position['y']]->play($color);
+
+        return $ret;
     }
 }

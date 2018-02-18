@@ -1,5 +1,7 @@
 <?php
 
+require_once('Goban_model.php');
+
 class Partie_model extends CI_Model {
 
     function __construct(){
@@ -28,7 +30,7 @@ class Partie_model extends CI_Model {
                 $array[$i][$j] = null;
             }
         }
-        $this->session->set_userdata('goban', $array);
+        $this->session->set_userdata('goban', new Goban_model($array));
     }
 
     function updateScoreSession($variable, $value){

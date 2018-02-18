@@ -19,8 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `go`
 --
+DROP DATABASE IF EXISTS `go`;
 CREATE DATABASE `go`;
-
+USE `go`;
 -- --------------------------------------------------------
 
 --
