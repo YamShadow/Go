@@ -1,11 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once(BASEPATH.'../application/models/Partie_model.php');
 
 class AjaxController extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('Goban_model', 'goban');
+		$this->load->model('Partie_model', 'goban');
     }
 	
 	public function index() {
