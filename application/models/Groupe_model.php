@@ -1,7 +1,5 @@
 <?php
 
-//require_once('Intersection_model.php');
-
 class Groupe_model extends CI_Model {
     /* Un groupe de pierres.
         Il a des libertés, etc.

@@ -1,5 +1,4 @@
 <?php
-//require_once('Groupe_model.php');
 
 class Intersection_model extends CI_Model {
 

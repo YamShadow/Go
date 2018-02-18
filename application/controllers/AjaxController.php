@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-//require_once(BASEPATH.'../application/models/Goban_model.php');
 
 class AjaxController extends CI_Controller {
 

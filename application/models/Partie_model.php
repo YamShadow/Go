@@ -38,7 +38,7 @@ class Partie_model extends CI_Model {
         for($i= 0; $i < $size; $i++){
             $array[$i] = array();
             for($j= 0; $j < $size; $j++){
-                $array[$i][$j] = null;
+                $array[$i][$j] = new Intersection_model(['x' => $i, 'y' => $j]);
             }
         }
 
