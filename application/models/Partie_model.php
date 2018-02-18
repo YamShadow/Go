@@ -10,6 +10,12 @@ class Partie_model extends CI_Model {
 
     /***** Fonctions principales *****/
 
+    /**
+     * Fonction d'initiatialisation de la partie. Elle permet de crée une instance de Partie en BDD ainsi que toute les variables de sessions. Ceci comprendre la génération d'un Goban en cache.
+     *
+     * @param [int] $size
+     * @return void
+     */
     function setSessionInit($size){
         $idPartie = $this->initPartieBDD();
         $this->session->set_userdata('idPartie', $idPartie);
@@ -22,6 +28,12 @@ class Partie_model extends CI_Model {
         $this->createGoban($size);
     }
 
+    /**
+     * Permet la création d'un goban et son stockage en session
+     *
+     * @param [int] $size
+     * @return void
+     */
     function createGoban($size){
         $array = array();
         for($i= 0; $i < $size; $i++){
@@ -34,10 +46,22 @@ class Partie_model extends CI_Model {
         $this->session->set_userdata('goban', new Goban_model($array));
     }
 
+    /**
+     * Methode qui permet de mettre a jour une variable de session
+     *
+     * @param [String] $variable
+     * @param [type] $value
+     * @return void
+     */
     function updateScoreSession($variable, $value){
         $this->session->set_userdata($variable, $value);
     }
 
+    /**
+     * Methode d'insert de partie en BDD
+     *
+     * @return void
+     */
     function initPartieBDD() {
         $data = array(
             'winner' => '',
@@ -53,6 +77,13 @@ class Partie_model extends CI_Model {
         return  $insert_id;
     }
 
+    /**
+     * Methode qui permet de sauvegarder un coup en BDD
+     *
+     * @param [int] $x
+     * @param [int] $y
+     * @return void
+     */
     function saveCoup($x, $y) {
         $data = array(
             'idPartie' => $this->session->userdata('idPartie'),
@@ -63,6 +94,11 @@ class Partie_model extends CI_Model {
         $this->db->insert('historique_coups', $data);
     }
 
+    /**
+     * Methode qui permet de mettre a jour les scores finaux de la partie 
+     *
+     * @return void
+     */
     function savePartie() {
         $data = array(
             'winner' => $this->session->userdata('winner'),
