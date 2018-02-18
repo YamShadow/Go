@@ -94,3 +94,17 @@ main
 {
     opacity: 1;
 }
+
+.cacheBord{
+    width: 100%;
+    height: 10px;
+    position:  relative;
+    background-color: #f2b06d;
+}
+.cacheTop {
+    top: 9px;
+}
+.cacheBottom {
+    bottom: 12px;
+    height: 12px;
+}

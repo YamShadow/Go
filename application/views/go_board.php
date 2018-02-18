@@ -6,6 +6,8 @@
     </div>
 
     <div id="goban">
+        <div class="cacheBord cacheTop" ></div>
+        <div class="cacheBordCoter" ></div>
         <table>
             <?php
                 $str = '';
@@ -20,6 +22,7 @@
                 echo $str;
             ?>
         </table>
+        <div class="cacheBord cacheBottom" ></div>
     </div>
 
     <div>
