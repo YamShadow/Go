@@ -16,6 +16,7 @@ class Intersection_model extends CI_Model {
 
     public function __construct($position) {
         $this->position = $position;
+        $this->load->model('Partie_model', 'partie');
     }
 
     public function play($color) {
@@ -72,7 +73,7 @@ class Intersection_model extends CI_Model {
                         // Je ne sais juste pas comment me parvient la couleur (booléen ou string)
 
                     // Sauvegarder le coup dans la BDD
-                        // TODO utiliser le model de @Mathieu 
+                        $this->partie->saveCoup($position['x'], $position['y']);
 
                 } else {
                     $ret['etat'] = 'nok';
