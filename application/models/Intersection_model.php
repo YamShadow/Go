@@ -62,8 +62,8 @@ class Intersection_model extends CI_Model {
 
                     // Puis si notre pierre n'a tué qu'une pierre et est à présent un groupe unitaire avec une seule liberté, c'est qu'on est en kô
                     if (($deathCounter == 1) && ($this->groupe->getStoneNbr() == 1) && ($this->groupe->getLibertyNbr() == 1)) {
-                        $this->isKoo = true;
-                        $ret['koo'] = $this->position;
+                        $this->getLiberties()[0]->setKoo();
+                        $ret['koo'] = $this->getLiberties()[0]->getPosition();
                     }
 
                     // Ajouter les pierres tuées au compteur du joueur
@@ -105,6 +105,10 @@ class Intersection_model extends CI_Model {
             return $this->color != null;
         else 
             return $this->color == $color;
+    }
+
+    public function setKoo() {
+        $this->isKoo = true;
     }
 
     public function unsetKoo() {
