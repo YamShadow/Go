@@ -1,11 +1,10 @@
 <?php
 
-require_once('Goban_model.php');
-
 class Partie_model extends CI_Model {
 
     function __construct(){
         parent::__construct();
+        $this->load->model('Goban_model', 'gobal');
     }
 
     /***** Fonctions principales *****/

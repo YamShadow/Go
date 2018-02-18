@@ -1,6 +1,6 @@
 <?php
 
-require_once('Intersection_model.php');
+//require_once('Intersection_model.php');
 
 class Groupe_model extends CI_Model {
     /* Un groupe de pierres.
@@ -11,12 +11,22 @@ class Groupe_model extends CI_Model {
     private $pierres = array();
     private $libertes = array();
 
-    public function __construct($stone) {
-        $this->pierres[] = $stone;
+    public function __construct() {
+        $cpt = func_num_args();
+        $args = func_get_args();
+        switch($cpt){
+                case '0':
+                    parent::__construct();
+                    break;
+                case '1':
+                    parent::__construct();
+                    $this->pierres[] = $args[0];
 
-        $stone->setGroup($this);
+                    $args[0]->setGroup($this);
 
-        $this->libertes = $stone->getLiberties();
+                    $this->libertes = $args[0]->getLiberties();
+                    break;
+            }
     }
 
     public function merge(Groupe_model $g) {

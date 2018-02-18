@@ -11,8 +11,18 @@ class Goban_model extends CI_Model {
     private $groupes = array();
     private $goban = array();
 
-    public function __construct($array) {
-        $this->goban = $array;
+    public function __construct() {
+        $cpt = func_num_args();
+        $args = func_get_args();
+        switch($cpt){
+                case '0':
+                    parent::__construct();
+                    break;
+                case '1':
+                    parent::__construct();
+                    $this->goban = $args[0];
+                    break;
+            }
     }
 
     public function merge(Groupe_model $g1, Group_model $g2) {

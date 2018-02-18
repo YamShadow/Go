@@ -1,12 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(BASEPATH.'../application/models/Partie_model.php');
+//require_once(BASEPATH.'../application/models/Goban_model.php');
 
 class AjaxController extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('Partie_model', 'goban');
+		$this->load->model('Goban_model', 'goban');
+		$this->load->model('Partie_model', 'partie');
     }
 	
 	public function index() {
@@ -14,6 +15,7 @@ class AjaxController extends CI_Controller {
 		$pos = $this->input->post('pos', true);
 		$color = $this->input->post('player', true);
 
+		var_dump($this->session->userdata('goban'));
 		if ($pos != null && $color != null)
 			$ret = $this->session->userdata('goban')->play($pos, $color);
 		else

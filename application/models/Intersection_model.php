@@ -1,5 +1,5 @@
 <?php
-require_once('Groupe_model.php');
+//require_once('Groupe_model.php');
 
 class Intersection_model extends CI_Model {
 
@@ -14,8 +14,18 @@ class Intersection_model extends CI_Model {
     private $isKoo = false;
     private $groupe = null;
 
-    public function __construct($position) {
-        $this->position = $position;
+    public function __construct() {
+        $cpt = func_num_args();
+        $args = func_get_args();
+        switch($cpt){
+                case '0':
+                    parent::__construct();
+                    break;
+                case '1':
+                    parent::__construct();
+                    $this->position = $args[0];
+                    break;
+            }
         $this->load->model('Partie_model', 'partie');
     }
 
