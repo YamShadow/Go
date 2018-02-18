@@ -37,7 +37,7 @@ class Partie_model extends CI_Model {
         $this->session->set_userdata($variable, $value);
     }
 
-    function initPartieBDD(){
+    function initPartieBDD() {
         $data = array(
             'winner' => '',
             'pierreJ1' => 0,
@@ -52,13 +52,27 @@ class Partie_model extends CI_Model {
         return  $insert_id;
     }
 
-    function savePartie(){
-        $data = array();
+    function saveCoup($x, $y) {
+        $data = array(
+            'idPartie' => $this->session->userdata('idPartie'),
+            'positionX' => $x,
+            'positionY' => $y,
+        );
 
-
-
-
+        $this->db->insert('historique_coups', $data);
     }
 
+    function savePartie() {
+        $data = array(
+            'winner' => $this->session->userdata('winner'),
+            'pierreJ1' => $this->session->userdata('pierreJ1'),
+            'pierreJ2' => $this->session->userdata('pierreJ2'),
+            'scoreJ1' => $this->session->userdata('scoreJ1'),
+            'scoreJ2' => $this->session->userdata('scoreJ2')
+        );
+        
+        $this->db->where('id', $this->session->userdata('idPartie'))
+            ->update('partie', $data);
+    }
 
 }
