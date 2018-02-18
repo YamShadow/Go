@@ -5,7 +5,7 @@ class AjaxController extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->library('session');
+		$this->load->model('Goban_model', 'goban');
     }
 	
 	public function index() {
@@ -14,7 +14,7 @@ class AjaxController extends CI_Controller {
 		$color = $this->input->post('player', true);
 
 		if ($pos != null && $color != null)
-			$ret = $this->session->goban->play($pos, $color);
+			$ret = $this->session->userdata('goban')->play($pos, $color);
 		else
 			$ret = array(
 				'etat' => 'nok', 

@@ -30,6 +30,7 @@ class Partie_model extends CI_Model {
                 $array[$i][$j] = null;
             }
         }
+
         $this->session->set_userdata('goban', new Goban_model($array));
     }
 
