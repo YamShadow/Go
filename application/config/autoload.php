@@ -132,4 +132,10 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Go_model' => 'go');
+$autoload['model'] = array(
+	'Go_model' => 'go',
+	'Partie_model' => 'partie',
+	'Goban_model' => 'goban',
+	'Intersection_model' => 'intersection',
+	'Groupe_model' => 'groupe'
+	);

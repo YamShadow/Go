@@ -1,7 +1,5 @@
 <?php
 
-require_once('Groupe_model.php');
-
 class Goban_model extends CI_Model {
 
         /* Contient une collection de groupes de pierres.
@@ -11,7 +9,7 @@ class Goban_model extends CI_Model {
     private $groupes = array();
     private $goban = array();
 
-    public function __construct($array) {
+    public function __construct($array = null) {
         $this->goban = $array;
     }
 
