@@ -2,7 +2,7 @@
 
 require_once('Groupe_model.php');
 
-class Goban_model {
+class Goban_model extends CI_model {
 
         /* Contient une collection de groupes de pierres.
             Il faut pouvoir en appeler, en supprimer, en merge, ...
@@ -12,6 +12,7 @@ class Goban_model {
     private $goban = array();
 
     public function __construct($array) {
+        $this->load->library('session');
         foreach($array as $i => $iitem) {
             foreach ($iitem as $j => $jitem) {
                 $this->goban[$i][$j] = new Intersection_model($jitem['position'], $jitem['color']);
@@ -25,8 +26,8 @@ class Goban_model {
     }
 
     public function getStone($position) {
-        if (isset($goban[$position['x']][$position['y']]))
-            return $goban[$position['x']][$position['y']];
+        if (isset($this->goban[$position['x']][$position['y']]))
+            return $this->goban[$position['x']][$position['y']];
         else return false;
     }
 
@@ -78,6 +79,20 @@ class Goban_model {
 
         // On joue la pierre
         $ret = $this->goban[$position['x']][$position['y']]->play($color);
+
+        
+        
+        if (isset($ret['put'])) {
+            // $this->session->goban[$ret['put']['x']][$ret['put']['y']]['color'] = $color;
+            // Has no effect ! TODO : Débugger
+        }
+
+        if (isset($ret['remove'])) {
+            foreach($ret['remove'] as $remove) {
+                // $this->session->goban[$remove['x']][$remove['y']]['color'] = null;
+                // Has no effect ! TODO : Débugger
+            }
+        }
 
         return $ret;
     }

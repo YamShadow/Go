@@ -26,13 +26,16 @@ class Intersection_model extends CI_model {
 
         if ($this->color == null) {     // Si aucune pierre n'est posée ici
             if (!$this->isKoo) {        // Si on est pas en kô
-                if (!empty($this->getLiberties()) || !empty($kills = $this->canKill())) {        // Si on a une liberté en jouant ici ou si on tue
+                
+                // La pierre est affectée à un groupe vide
+                $goban->addGroupe($this);
+                
+                if (!empty($this->getLiberties()) || !empty($this->canKill())) {        // Si on a une liberté en jouant ici ou si on tue
+                    $kills = $this->canKill();
+
                     // La pierre est jouée
                     $ret['put'] = $this->position;
                     $this->color = $color;
-
-                    // La pierre est affectée à un groupe vide
-                    $goban->addGroupe($this);
 
                     // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
                     // On cherche les groupes autour de la pierre par rapport à sa position
@@ -73,7 +76,7 @@ class Intersection_model extends CI_model {
                         // Je ne sais juste pas comment me parvient la couleur (booléen ou string)
 
                     // Sauvegarder le coup dans la BDD
-                        $this->partie->saveCoup($position['x'], $position['y']);
+                        $this->partie->saveCoup($this->position['x'], $this->position['y']);
 
                 } else {
                     $ret['etat'] = 'nok';
@@ -124,16 +127,16 @@ class Intersection_model extends CI_model {
         $goban = new Goban_Model($this->session->goban);
 
         // On cherche les libertés de la pierre par rapport à sa position
-        if ($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']]) && $s->isStone())
+        if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && !$s->isStone())
             $libertes[] = $s->getPosition();
 
-        if ($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']]) && $s->isStone())
+        if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']])) && !$s->isStone())
             $libertes[] = $s->getPosition();
 
-        if ($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']-1)]) && $s->isStone())
+        if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']-1)])) && !$s->isStone())
             $libertes[] = $s->getPosition();
         
-        if ($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']+1)]) && $s->isStone())
+        if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']+1)])) && !$s->isStone())
             $libertes[] = $s->getPosition();
 
         return $libertes;

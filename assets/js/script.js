@@ -17,11 +17,27 @@ $(function () {
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: dataSent,
-            // dataType: 'json',
+            dataType: 'json',
             success: function(data) {
                 if (data.etat == 'ok') {
-                    putInfo(data);
-                    playStone(pos);
+                    var msg = '';
+
+                    if ('message' in data) 
+                        msg += data.message+'<br>';
+
+                    if ('put' in data) {
+                        playStone(data.put.x, data.put.y);
+                        msg += 'Played: ('+data.put.x+', '+data.put.y+')<br>';
+                    }
+
+                    if ('remove' in data) {
+                        for (var stone in data.remove) {
+                            msg += 'Removed: ('+stone.x+', '+stone.y+')<br>';
+                            removeStone(stone.x, stone.y);
+                        }
+                    }
+
+                    putSuccess(msg);
                     switchPlayer();
                 } else 
                     putError(data);
@@ -84,42 +100,41 @@ $(function () {
             // Rien
     }
 
-    // function playStone(x, y) {
-    //     var pos = '#'+x+'_'+y;
-
-    //     $(pos).toggleClass('pre-stone').toggleClass('stone');
-    // }
-
-    function playStone(pos) {
-        $('#'+pos+' i').toggleClass('pre-stone stone');
-        // $('#'+pos+' i').toggleClass('stone');
+    function playStone(x, y) {
+        var pos = '#'+x+'_'+y+' i';
+        console.log(pos);
+        $(pos).toggleClass('pre-stone stone');
+    }
+    
+    function removeStone(x, y) {
+        var pos = '#'+x+'_'+y+' i';
+        console.log(pos);
+        $(pos).toggleClass('pre-stone stone');
+        $(pos).removeClass('black white');
+        
+        if (player)
+            $(pos).addClass('black');
+        else
+            $(pos).addClass('white');
     }
 
-    // function removeStone(x, y) {
-    //     var pos = '#'+x+'_'+y;
+    // function playStone(pos) {
+    //     $('#'+pos+' i').toggleClass('pre-stone stone');
+    // }
 
-    //     $(pos).toggleClass('pre-stone stone');
-    //     $(pos).removeClass('black').removeClass('white');
+    // function removeStone(pos) {
+    //     $('#'+pos).toggleClass('pre-stone').toggleClass('stone');
+    //     $('#'+pos).removeClass('black').removeClass('white');
 
     //     if (player)
-    //         $(pos).addClass('black');
+    //         $('#'+pos).addClass('black');
     //     else
-    //         $(pos).addClass('white');
+    //         $('#'+pos).addClass('white');
     // }
-
-    function removeStone(pos) {
-        $('#'+pos).toggleClass('pre-stone').toggleClass('stone');
-        $('#'+pos).removeClass('black').removeClass('white');
-
-        if (player)
-            $('#'+pos).addClass('black');
-        else
-            $('#'+pos).addClass('white');
-    }
 
     function switchPlayer() {
         player = !player;
-        $('.pre-stone').toggleClass('black').toggleClass('white');
+        $('.pre-stone').toggleClass('black white');
     }
 
     function putError(msg) {
