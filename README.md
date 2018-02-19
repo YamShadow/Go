@@ -22,9 +22,17 @@ Il faut, de fait, prévoir de pouvoir supprimer un kô.
 
 
 ### Pour le Back
-Débugger pour la fonction play().
-Le squelette est déjà présent. Simplement l'erreur est telle que le code semble ne pas connaître Goban_model.
 
+L'arnaque moldave a fonctionné. J'ai contourné le problème d'objet en session en faisant, simplement, une nouvelle instance de Goban à chaque appel AJAX partir d'un array qui, lui, est stocké en mémoire. C'est moche, niveau algorithmique, mais ça fonctionne =P
+
+De fait, on passe, pour récupérer le goban, de :
+	`$goban = $this->session->goban;`
+à :
+	`$goban = new Goban_Model($this->session->goban);`
+
+
+
+Débugger pour la fonction play().
 Il faudra faire l'algo, lorsque tout ça sera réglé, pour calculer les points (je l'ai déjà en tête, mais je ne peux pas l'écrire atm puisque bug).
 
 

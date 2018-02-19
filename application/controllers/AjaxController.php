@@ -5,7 +5,6 @@ class AjaxController extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this->load->model('Goban_model', 'goban');
 		$this->load->model('Partie_model', 'partie');
     }
 	
@@ -14,9 +13,9 @@ class AjaxController extends CI_Controller {
 		$pos = $this->input->post('pos', true);
 		$color = $this->input->post('player', true);
 
-		var_dump($this->session->userdata('goban'));
+		// var_dump($this->session->userdata('goban'));
 		if ($pos != null && $color != null)
-			$ret = $this->session->userdata('goban')->play($pos, $color);
+			$ret = $this->partie->play($pos, $color);
 		else
 			$ret = array(
 				'etat' => 'nok', 

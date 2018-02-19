@@ -1,13 +1,16 @@
 <?php
 
-class Partie_model extends CI_Model {
+require_once('Goban_model.php');
 
-    function __construct(){
-        parent::__construct();
-        $this->load->model('Goban_model', 'gobal');
-    }
-
+class Partie_model extends CI_model {
     /***** Fonctions principales *****/
+
+    private $goban = null;
+
+    public function __construct() {
+        parent::__construct();
+        $this->load->database();
+    }
 
     /**
      * Fonction d'initiatialisation de la partie. Elle permet de crée une instance de Partie en BDD ainsi que toute les variables de sessions. Ceci comprendre la génération d'un Goban en cache.
@@ -38,11 +41,18 @@ class Partie_model extends CI_Model {
         for($i= 0; $i < $size; $i++){
             $array[$i] = array();
             for($j= 0; $j < $size; $j++){
-                $array[$i][$j] = new Intersection_model(['x' => $i, 'y' => $j]);
+                $array[$i][$j] = array(
+                    'position' => ['x' => $i, 'y' => $j], 
+                    'color' => null);
             }
         }
 
-        $this->session->set_userdata('goban', new Goban_model($array));
+        $this->session->set_userdata('goban', $array);
+    }
+
+    public function play($pos, $color) {
+        $this->goban = new Goban_Model($this->session->goban);
+        return $this->goban->play($pos, $color);
     }
 
     /**

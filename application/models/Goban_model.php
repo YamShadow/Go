@@ -1,6 +1,8 @@
 <?php
 
-class Goban_model extends CI_Model {
+require_once('Groupe_model.php');
+
+class Goban_model {
 
         /* Contient une collection de groupes de pierres.
             Il faut pouvoir en appeler, en supprimer, en merge, ...
@@ -9,18 +11,12 @@ class Goban_model extends CI_Model {
     private $groupes = array();
     private $goban = array();
 
-    public function __construct() {
-        $cpt = func_num_args();
-        $args = func_get_args();
-        switch($cpt){
-                case '0':
-                    parent::__construct();
-                    break;
-                case '1':
-                    parent::__construct();
-                    $this->goban = $args[0];
-                    break;
+    public function __construct($array) {
+        foreach($array as $i => $iitem) {
+            foreach ($iitem as $j => $jitem) {
+                $this->goban[$i][$j] = new Intersection_model($jitem['position'], $jitem['color']);
             }
+        }
     }
 
     public function merge(Groupe_model $g1, Group_model $g2) {
@@ -51,7 +47,7 @@ class Goban_model extends CI_Model {
         // Renvoie les groupes qui comptent $position comme une de leurs libertés
         $ret = array();
 
-        foreach ($groupes as $groupe) {
+        foreach ($this->groupes as $groupe) {
             if ($groupe->hasInLiberties($position)) $ret[] = $groupe;
         }
 
@@ -59,7 +55,7 @@ class Goban_model extends CI_Model {
     }
 
     public function unsetKoo() {
-        foreach ($groupes as $groupe) {
+        foreach ($this->groupes as $groupe) {
             if ($groupe->unsetKoo()) return;
         }
     }
@@ -73,7 +69,7 @@ class Goban_model extends CI_Model {
         $regex = '#(\d+)_(\d+)#';
         $matches = array();
 
-        $n = preg_match($regex, $ops, $matches);
+        $n = preg_match($regex, $pos, $matches);
 
         $position = array(
             'x' => $matches[1],
@@ -81,7 +77,7 @@ class Goban_model extends CI_Model {
         );
 
         // On joue la pierre
-        $ret = $goban[$position['x']][$position['y']]->play($color);
+        $ret = $this->goban[$position['x']][$position['y']]->play($color);
 
         return $ret;
     }
