@@ -1,7 +1,7 @@
 $(function () {
     var player = true;
 
-    $('.case').on('click', function (e) {
+    $('.pre-stone').on('click', function (e) {
         play(e.currentTarget.id);
     });
 
@@ -20,6 +20,7 @@ $(function () {
             dataType: 'json',
             success: function(data) {
                 if (data.etat == 'ok') {
+                    removeKoo();
                     var msg = '';
 
                     if ('message' in data) 
@@ -35,6 +36,10 @@ $(function () {
                             msg += 'Removed: ('+stone.x+', '+stone.y+')<br>';
                             removeStone(stone.x, stone.y);
                         }
+                    }
+
+                    if ('koo' in data) {
+                        isKoo(data.koo.x, data.koo.y);
                     }
 
                     putSuccess(msg);
@@ -116,6 +121,16 @@ $(function () {
             $(pos).addClass('black');
         else
             $(pos).addClass('white');
+    }
+
+    function isKoo(x, y) {
+        var pos = '#'+x+'_'+y+' i';
+        $(pos).toggleClass('pre-stone koo');
+        $(pos).toggleClass('fa-circle fa-square');
+    }
+
+    function removeKoo() {
+        $('.koo').toggleClass('koo fa-square pre-stone fa-circle');
     }
 
     // function playStone(pos) {

@@ -95,6 +95,10 @@ main
     opacity: 1;
 }
 
+.koo {
+    color: blue;
+}
+
 .cacheBord{
     width: 100%;
     height: 10px;

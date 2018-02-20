@@ -1,7 +1,7 @@
 {
     "client": {
         "base_url": {
-            "git" : "M1Dev/POO/go/"
+            "git" : "go/"
             , "prod" : "yamishadow.fr"
             , "ssl" : false
         }
