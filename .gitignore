@@ -1,6 +1,6 @@
-surcouche/data/*
 .DS_Store
 
+surcouche/data/*.json
 application/cache/*
 !application/cache/index.html
 

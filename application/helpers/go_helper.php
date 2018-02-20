@@ -23,3 +23,7 @@ function logGo($message){
     fputs($log, $prepare);
     fclose($log);
 }
+
+function pr($msg) {
+  echo '<pre>'.print_r($msg).'</pre>';
+}

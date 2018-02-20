@@ -28,7 +28,7 @@ L'arnaque moldave a fonctionné. J'ai contourné le problème d'objet en session
 De fait, on passe, pour récupérer le goban, de :
 	`$goban = $this->session->goban;`
 à :
-	`$goban = new Goban_Model($this->session->goban);`
+	`$goban = new Goban_Model($this->session->goban, $this->session->groupes);`
 
 
 

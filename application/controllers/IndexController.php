@@ -23,7 +23,7 @@ class IndexController extends CI_Controller {
 		$this->load->view('base', array(
             'header' => array(
                 'css' => array(
-                    
+                    'css/style'
                 )
             ),
             'body' => 'goban_choice',
