@@ -1,15 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// ------------------------------------------------------------------------
-
-/**
- * Go Helpers
- * 
- * @author		Mathieu Nibas
- */
-
-// ------------------------------------------------------------------------
-
 /**
  * Methode log qui permet de crée un log
  * * @param $message
@@ -24,7 +14,7 @@ function logGo($message){
 		$ip = $_SERVER['REMOTE_ADDR'];
     
     $date = new DateTime('now', new DateTimeZone('Europe/Paris'));
-    
+
     if(!is_dir(BASEPATH.'../logs/'))
         mkdir(BASEPATH.'../logs/', '750');
         
