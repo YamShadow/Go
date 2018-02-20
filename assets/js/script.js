@@ -133,18 +133,18 @@ $(function () {
 
     function isKoo(x, y) {
         var pos = '#'+x+'_'+y+' i';
-        $(pos).toggleClass('pre-stone koo');
-        $(pos).toggleClass('fa-circle fa-square');
+        $(pos).toggleClass('pre-stone koo fa-circle fa-square');
     }
 
     function removeKoo() {
-        $('.koo').toggleClass('koo fa-square pre-stone fa-circle');
-        $(pos).removeClass('black white');
+        $('.koo').removeClass('black white');
         
         if (player)
-            $(pos).addClass('black');
+        $('.koo').addClass('black');
         else
-            $(pos).addClass('white');
+        $('.koo').addClass('white');
+        
+        $('.koo').toggleClass('fa-square pre-stone fa-circle koo');
     }
 
     function switchPlayer() {

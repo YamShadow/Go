@@ -20,8 +20,10 @@ On s'est inspiré de Observer aussi, notamment pour le transit des infos au sein
 On a cependant dû improviser au vu de l'impossibilité de stocker un objet en session PHP.
 
 ## Précisions sur le rendu
-Vous vous rendrez sûrement compte, en testant le code, que tout ne fonctionne pas.  
-Néanmoins, toute la logique est implémentée dans le code. Le bug n'est pas fatal, il manque simplement la fonctionnalité.  
+Vous vous rendrez sûrement compte, en testant le code, que tout n'est pas fonctionnel.  
+Néanmoins, toute la logique est implémentée dans le code. Les fonctionnalités manquantes n'empêchent pas celles déjà présentes de tourner.  
+  
+Aussi, vous trouverez sur la branche master la version "propre" du projet, avec seulement les outils fonctionnels. En revanche, vous trouverez sur la branche préprod ceux en cours de développement (s'il y a une différence).  
   
 J'ai dû procéder à une arnaque pour contourner le problème d'objets en session en faisant, simplement, une nouvelle instance de Goban à chaque appel AJAX à partir de 2 arrays qui, leux, sont stockés en mémoire. C'est moche, niveau algorithmique, mais ça fonctionne =P  
   

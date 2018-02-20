@@ -38,9 +38,8 @@ class Intersection_model extends CI_model {
 
                     // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
                     // On cherche les groupes autour de la pierre par rapport à sa position
-                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color)) {
+                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color))
                         $goban->merge($this->groupe, $s->getGroup());
-                    }
 
                     if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']])) && $s->isStone($color))
                         $goban->merge($this->groupe, $s->getGroup());
@@ -53,13 +52,12 @@ class Intersection_model extends CI_model {
 
 
                     // On a posé la pierre, donc on tue les groupes (et on compte les pierres mortes)
-                    $deathCounter = 0;
                     $ret['remove'] = array();
                     foreach ($kills as $groupToKill) {
-                        $deathCounter += $groupToKill->getStoneNbr();
-                        $ret['remove'] = array_merge($ret['remove'], $groupToKill->getAllPositions());
+                        $ret['remove'] = array_unique(array_merge($ret['remove'], $groupToKill->getAllPositions()), SORT_REGULAR);
                         $goban->deleteGroupe($groupToKill);
                     }
+                    $deathCounter = sizeof($ret['remove']);
 
                     // Virer tous les autres kô précédents s'il y avait et update les libertés des groupes
                     $goban->unsetKoo();
