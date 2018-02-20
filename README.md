@@ -6,8 +6,8 @@ Groupe :
 
 ## Getting Started
 PHP 7.x requis.
-Créer une base de données nommée `go`.
-Modifier le fichier /surcouche/data/client.json (notamment pour les paramètres BDD et le base_url/git).
+Créer une base de données nommée \`go\`.
+Modifier le fichier `/surcouche/data/client.json` (notamment pour les paramètres BDD et le base_url/git).
 
 Voir les règles du go : https://fr.wikipedia.org/wiki/R%C3%A8gles_du_go.
 

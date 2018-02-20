@@ -71,12 +71,19 @@ class Intersection_model extends CI_model {
                     }
 
                     // Ajouter les pierres tuées au compteur du joueur
-                        // TODO switch la couleur pour ajouter au bon jouer
-                        // Rappel : J1 = noir et J2 = blanc
-                        // Je ne sais juste pas comment me parvient la couleur (booléen ou string)
-
+                    if ($color == 'blanc')
+                        $_SESSION['pierreJ2'] += $deathCounter;
+                    else
+                        $_SESSION['pierreJ1'] += $deathCounter;
+                        
+                    $ret['count_black'] = $_SESSION['pierreJ1'];
+                    $ret['count_white'] = $_SESSION['pierreJ2'];
+                    
+                    
                     // Sauvegarder le coup dans la BDD
-                        $this->partie->saveCoup($this->position['x'], $this->position['y']);
+                    $this->partie->saveCoup($this->position['x'], $this->position['y']);
+                    
+                    $ret['etat'] = 'ok';
 
                 } else {
                     $ret['etat'] = 'nok';
