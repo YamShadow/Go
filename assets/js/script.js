@@ -17,7 +17,7 @@ $(function () {
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: dataSent,
-            dataType: 'json',
+            // dataType: 'json',
             success: function(data) {
                 if (data.etat == 'ok') {
                     var msg = '';
@@ -37,7 +37,7 @@ $(function () {
                         }
                     }
 
-                    putSuccess(msg);
+                    putSuccess(data);
                     switchPlayer();
                 } else 
                     putError(data);

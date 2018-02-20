@@ -16,7 +16,7 @@ class AjaxController extends CI_Controller {
 		$pos = $this->input->post('pos', true);
 		logGo('[AJAX] position du coup '.$pos);
 		$color = $this->input->post('player', true);
-		logGo('[AJAX] Jouer par '.$color);
+		logGo('[AJAX] Joué par '.$color);
 
 		if ($pos != null && $color != null)
 			$ret = $this->partie->play($pos, $color);
@@ -25,7 +25,7 @@ class AjaxController extends CI_Controller {
 				'etat' => 'nok', 
 				'message' => 'Erreur dans le call AJAX'
 			);
-			logGo('[AJAX] Erreur dans le call');
+			logGo('[AJAX] Erreur dans le call.');
 		}
 
 		// Faire un retour en json

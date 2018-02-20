@@ -19,7 +19,7 @@ class IndexController extends CI_Controller {
 	public function index()
 	{
 
-        logGo('Bonjour sur le go');
+        logGo('Bonjour, bienvenue sur le go.');
 		$this->load->view('base', array(
             'header' => array(
                 'css' => array(

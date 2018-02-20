@@ -39,7 +39,6 @@ class Intersection_model extends CI_model {
                     // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
                     // On cherche les groupes autour de la pierre par rapport à sa position
                     if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color)) {
-                        // var_dump($s);
                         $goban->merge($this->groupe, $s->getGroup());
                     }
 
@@ -105,7 +104,7 @@ class Intersection_model extends CI_model {
     }
     
     public function hasPosition($position) {
-        return (($this->position['x'] == $position['x']) && ($this->position['y'] == $position['y']));
+        return $this->position == $position;
     }
 
     public function getPosition() {
@@ -153,7 +152,7 @@ class Intersection_model extends CI_model {
         // Renvoie les groupes que peut tuer la pierre en étant jouée ici
         $ret = array();
 
-        $groupesWithThatLiberty = $goban->getGroupesFromLiberty($this);
+        $groupesWithThatLiberty = $goban->getGroupesFromLiberty($this->position);
 
         foreach($groupesWithThatLiberty as $groupe) {
             // Si le groupe n'a qu'une liberté, c'est que c'est celle-ci donc que ça peut tuer

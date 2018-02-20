@@ -28,10 +28,8 @@ class Groupe_model {
             $stone->setGroup($this);
         }
         
-        var_dump($g);
-
-        $this->pierres = array_unique(array_merge($this->pierres, $g->getStones()));
-        $this->libertes = array_unique(array_merge($this->libertes, $g->getLiberties()));
+        $this->pierres = array_unique(array_merge($this->pierres, $g->getStones()), SORT_REGULAR);
+        $this->libertes = array_unique(array_merge($this->libertes, $g->getLiberties()), SORT_REGULAR);
 
         unset($g);
     }

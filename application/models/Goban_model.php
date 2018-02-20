@@ -61,7 +61,9 @@ class Goban_model extends CI_model {
         $ret = array();
 
         foreach ($this->groupes as $groupe) {
-            if ($groupe->hasInLiberties($position)) $ret[] = $groupe;
+            if ($groupe->hasInLiberties($position)) {
+                $ret[] = $groupe;
+            }
         }
 
         return $ret;
