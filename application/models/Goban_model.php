@@ -11,16 +11,28 @@ class Goban_model extends CI_model {
     private $groupes = array();
     private $goban = array();
 
-    public function __construct($array) {
+    public function __construct($arrayGoban, $arrayGroupes) {
         $this->load->library('session');
-        foreach($array as $i => $iitem) {
+
+        // On recrée le goban à partir de $arrayGoban
+        foreach($arrayGoban as $i => $iitem) {
             foreach ($iitem as $j => $jitem) {
                 $this->goban[$i][$j] = new Intersection_model($jitem['position'], $jitem['color']);
             }
         }
+
+        // On recrée les groupes à partir de $arrayGroupes
+        foreach($arrayGroupes as $i => $groupe) {
+            $this->groupes[$i] = new Groupe_model($this);
+            foreach($groupe as $stone) {
+                // Pour chaque $stone qui est dans chaque $groupe (en vrai $stone = une position)
+                // On crée un groupe et on merge avec ce qu'on a déjà
+                $this->merge($this->groupes[$i], new Groupe_model($this, $this->getStone($stone)));
+            }
+        }
     }
 
-    public function merge(Groupe_model $g1, Group_model $g2) {
+    public function merge(Groupe_model $g1, Groupe_model $g2) {
         // Permet de fusionner $g1 et $g2
         $g1->merge($g2);
     }
@@ -62,7 +74,7 @@ class Goban_model extends CI_model {
     }
 
     public function addGroupe($stone) {
-        $this->groupes[] = new Groupe_model($stone);
+        $this->groupes[] = new Groupe_model($this, $stone);
     }
 
     public function play($pos, $color) {
@@ -78,9 +90,10 @@ class Goban_model extends CI_model {
         );
 
         // On joue la pierre
-        $ret = $this->goban[$position['x']][$position['y']]->play($color);
+        $ret = $this->goban[$position['x']][$position['y']]->play($this, $color);
 
-        
+        if (!empty($this->groupes))
+            $_SESSION['groupes'] = $this->getExportGroupes();
         
         if (isset($ret['put'])) {
             $_SESSION['goban'][$ret['put']['x']][$ret['put']['y']]['color'] = $color;
@@ -92,6 +105,21 @@ class Goban_model extends CI_model {
             }
         }
 
+        return $ret;
+    }
+
+    public function getExportGroupes() {
+        // Retourne un array contenant tous les groupes pour être stocké en session
+        $ret = array();
+        
+        foreach ($this->groupes as $i => $groupe) {
+            $ret[$i] = array();
+
+            foreach($groupe->getStones() as $stone) {
+                $ret[$i][]= $stone->getPosition();
+            }
+        }
+        
         return $ret;
     }
 }

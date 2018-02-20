@@ -11,23 +11,27 @@ class Groupe_model {
     private $pierres = array();
     private $libertes = array();
 
-    public function __construct($stone) {
-        $this->pierres[] = $stone;
-
-        $stone->setGroup($this);
-
-        $this->libertes = $stone->getLiberties();
+    public function __construct(Goban_model $goban, Intersection_model $stone = null) {
+        if ($stone != null) {
+            $this->pierres[] = $stone;
+    
+            $stone->setGroup($this);
+    
+            $this->libertes = $stone->getLiberties($goban);
+        }
     }
 
     public function merge(Groupe_model $g) {
         if ($g == null) return false;
         // Permet de fusionner avec un autre groupe
-        $this->pierres = array_unique(array_merge($this->getStones(), $g->getStones()));
-        $this->libertes = array_unique(array_merge($this->getLiberties(), $g->getLiberties()));
-
         foreach($g->getStones() as $stone) {
             $stone->setGroup($this);
         }
+        
+        var_dump($g);
+
+        $this->pierres = array_unique(array_merge($this->pierres, $g->getStones()));
+        $this->libertes = array_unique(array_merge($this->libertes, $g->getLiberties()));
 
         unset($g);
     }
@@ -57,15 +61,15 @@ class Groupe_model {
     }
 
     public function isInGroupe($position) {
-        foreach ($pierres as $pierre) {
+        foreach ($this->pierres as $pierre) {
             if ($pierre->hasPosition($position)) return true;
         }
         return false;
     }
 
     public function hasInLiberties($position) {
-        foreach ($libertes as $pierre) {
-            if ($pierre->hasPosition($position)) return true;
+        foreach ($this->libertes as $pierre) {
+            if ($pierre == $position) return true;
         }
         return false;
     }

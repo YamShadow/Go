@@ -27,6 +27,7 @@ class Partie_model extends CI_model {
         $this->session->set_userdata('pierreJ2', 0);
         $this->session->set_userdata('scoreJ1', 0);
         $this->session->set_userdata('scoreJ2', 0);
+        $this->session->set_userdata('groupes', array());
         $this->createGoban($size);
     }
 
@@ -51,7 +52,7 @@ class Partie_model extends CI_model {
     }
 
     public function play($pos, $color) {
-        $this->goban = new Goban_Model($this->session->goban);
+        $this->goban = new Goban_Model($this->session->goban, $this->session->groupes);
         return $this->goban->play($pos, $color);
     }
 
