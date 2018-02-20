@@ -61,13 +61,15 @@ class Intersection_model extends CI_model {
                         $goban->deleteGroupe($groupToKill);
                     }
 
-                    // Virer tous les autres kô précédents s'il y avait
+                    // Virer tous les autres kô précédents s'il y avait et update les libertés des groupes
                     $goban->unsetKoo();
+                    $goban->updateLiberties();
 
                     // Puis si notre pierre n'a tué qu'une pierre et est à présent un groupe unitaire avec une seule liberté, c'est qu'on est en kô
                     if (($deathCounter == 1) && ($this->groupe->getStoneNbr() == 1) && ($this->groupe->getLibertyNbr() == 1)) {
-                        $this->getLiberties($goban)[0]->setKoo();
-                        $ret['koo'] = $this->getLiberties($goban)[0]->getPosition();
+                        $lib = $this->getLiberties($goban)[0];
+                        $lib->setKoo();
+                        $ret['koo'] = $lib->getPosition();
                     }
 
                     // Ajouter les pierres tuées au compteur du joueur
@@ -134,16 +136,16 @@ class Intersection_model extends CI_model {
 
         // On cherche les libertés de la pierre par rapport à sa position
         if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && !$s->isStone())
-            $libertes[] = $s->getPosition();
+            $libertes[] = $s;
 
         if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']])) && !$s->isStone())
-            $libertes[] = $s->getPosition();
+            $libertes[] = $s;
 
         if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']-1)])) && !$s->isStone())
-            $libertes[] = $s->getPosition();
+            $libertes[] = $s;
         
         if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']+1)])) && !$s->isStone())
-            $libertes[] = $s->getPosition();
+            $libertes[] = $s;
 
         return $libertes;
     }

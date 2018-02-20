@@ -17,7 +17,10 @@ class Groupe_model {
     
             $stone->setGroup($this);
     
-            $this->libertes = $stone->getLiberties($goban);
+            $libs = $stone->getLiberties($goban);
+            foreach ($libs as $lib) {
+                $this->libertes[] = $lib->getPosition();
+            }
         }
     }
 
@@ -56,6 +59,16 @@ class Groupe_model {
 
     public function getLibertyNbr(){
         return sizeof($this->libertes);
+    }
+
+    public function updateLiberties(Goban_model $goban) {
+        foreach ($this->pierres as $stone) {
+            $libs = $stone->getLiberties($goban);
+            foreach ($libs as $lib) {
+                $this->libertes[] = $lib->getPosition();
+            }
+            $this->libertes = array_unique($this->libertes, SORT_REGULAR);
+        }
     }
 
     public function isInGroupe($position) {

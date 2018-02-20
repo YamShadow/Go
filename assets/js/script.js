@@ -139,21 +139,13 @@ $(function () {
 
     function removeKoo() {
         $('.koo').toggleClass('koo fa-square pre-stone fa-circle');
+        $(pos).removeClass('black white');
+        
+        if (player)
+            $(pos).addClass('black');
+        else
+            $(pos).addClass('white');
     }
-
-    // function playStone(pos) {
-    //     $('#'+pos+' i').toggleClass('pre-stone stone');
-    // }
-
-    // function removeStone(pos) {
-    //     $('#'+pos).toggleClass('pre-stone').toggleClass('stone');
-    //     $('#'+pos).removeClass('black').removeClass('white');
-
-    //     if (player)
-    //         $('#'+pos).addClass('black');
-    //     else
-    //         $('#'+pos).addClass('white');
-    // }
 
     function switchPlayer() {
         player = !player;

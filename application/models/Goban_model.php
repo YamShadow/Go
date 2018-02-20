@@ -54,6 +54,7 @@ class Goban_model extends CI_model {
         foreach ($groupes as $groupe) {
             if ($groupe->isInGroupe($position)) return $groupe;
         }
+        return null;
     }
 
     public function getGroupesFromLiberty($position) {
@@ -67,6 +68,12 @@ class Goban_model extends CI_model {
         }
 
         return $ret;
+    }
+
+    public function updateLiberties() {
+        foreach ($this->groupes as $groupe) {
+            $groupe->updateLiberties($this);
+        }
     }
 
     public function unsetKoo() {

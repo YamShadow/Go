@@ -11,7 +11,7 @@ Groupe :
 ## Getting Started
 PHP 7.x requis.  
 Créer une base de données nommée \`go\`. (Un dump sous format SQL se trouve dans `/dump`)  
-Modifier le fichier `/surcouche/data/client.json` (notamment pour les paramètres BDD et le base_url/git).  
+Modifier le fichier `/surcouche/data/client.json` (notamment pour les paramètres BDD et le `base_url/git`).  
   
 Voir les règles du go : https://fr.wikipedia.org/wiki/R%C3%A8gles_du_go.  
   
@@ -21,9 +21,6 @@ On a cependant dû improviser au vu de l'impossibilité de stocker un objet en s
 
 ## Précisions sur le rendu
 Vous vous rendrez sûrement compte, en testant le code, que tout ne fonctionne pas.  
-En effet, la mort d'un groupe de pierre n'est pas fonctionnel.  
-  
-Nous avons manqué de temps pour pouvoir peaufiner après la découverte tardive du problème de session PHP.  
 Néanmoins, toute la logique est implémentée dans le code. Le bug n'est pas fatal, il manque simplement la fonctionnalité.  
   
 J'ai dû procéder à une arnaque pour contourner le problème d'objets en session en faisant, simplement, une nouvelle instance de Goban à chaque appel AJAX à partir de 2 arrays qui, leux, sont stockés en mémoire. C'est moche, niveau algorithmique, mais ça fonctionne =P  
@@ -39,8 +36,7 @@ Il faudrait cacher les bords du goban.
 
 ### Pour le Back
 
-Débugger pour la fonction Interaction_model->play().  
-Il manque l'algo pour calculer les points (je l'ai déjà en tête, mais je ne peux pas l'écrire maintenant puisque bug). Je vais de fait l'écrire en français ici :  
+Il manque l'algo pour calculer les points (je l'ai déjà en tête, mais je ne peux pas l'écrire maintenant puisque plus assez de temps). Je vais de fait l'écrire en français ici :  
   
 ```
 On va, pour chaque groupe, parcourir ses libertés une à une.  
