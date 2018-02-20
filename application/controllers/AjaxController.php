@@ -2,25 +2,31 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AjaxController extends CI_Controller {
+	
 
+	/**
+	 * Cnstructeur de la class
+	 */
 	function __construct() {
 		parent::__construct();
-		$this->load->model('Partie_model', 'partie');
     }
 	
 	public function index() {
 		// Appeler play avec $pos et $color
 		$pos = $this->input->post('pos', true);
+		logGo('[AJAX] position du coup '.$pos);
 		$color = $this->input->post('player', true);
+		logGo('[AJAX] Jouer par '.$color);
 
-		// var_dump($this->session->userdata('goban'));
 		if ($pos != null && $color != null)
 			$ret = $this->partie->play($pos, $color);
-		else
+		else{
 			$ret = array(
 				'etat' => 'nok', 
 				'message' => 'Erreur dans le call AJAX'
 			);
+			logGo('[AJAX] Erreur dans le call');
+		}
 
 		// Faire un retour en json
 		header('Content-Type: application/json');
