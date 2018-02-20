@@ -23,8 +23,6 @@ On a cependant dû improviser au vu de l'impossibilité de stocker un objet en s
 Vous vous rendrez sûrement compte, en testant le code, que tout n'est pas fonctionnel.  
 Néanmoins, toute la logique est implémentée dans le code. Les fonctionnalités manquantes n'empêchent pas celles déjà présentes de tourner.  
   
-Aussi, vous trouverez sur la branche master la version "propre" du projet, avec seulement les outils fonctionnels. En revanche, vous trouverez sur la branche préprod ceux en cours de développement (s'il y a une différence).  
-  
 J'ai dû procéder à une arnaque pour contourner le problème d'objets en session en faisant, simplement, une nouvelle instance de Goban à chaque appel AJAX à partir de 2 arrays qui, leux, sont stockés en mémoire. C'est moche, niveau algorithmique, mais ça fonctionne =P  
   
 De fait, on passe, pour récupérer le goban, de :  

@@ -30,6 +30,8 @@ class Goban_model extends CI_model {
                 $this->merge($this->groupes[$i], new Groupe_model($this, $this->getStone($stone)));
             }
         }
+
+        logGo(sizeof($this->groupes));
     }
 
     public function merge(Groupe_model $g1, Groupe_model $g2) {
@@ -49,6 +51,17 @@ class Goban_model extends CI_model {
         else return false;
     }
 
+    public function arroundIsOk($position, $color) {
+        // Renvoie si une pierre de couleur $color avec plus d'une liberté entoure $position
+        if (   (($s1 = $this->getStone(['x' => ($position['x']-1), 'y' => $position['y']])) && $s1->isStone($color) && (sizeof($s1->getLiberties($this)) > 1))
+            || (($s2 = $this->getStone(['x' => ($position['x']+1), 'y' => $position['y']])) && $s2->isStone($color) && (sizeof($s2->getLiberties($this)) > 1))
+            || (($s3 = $this->getStone(['x' => $position['x'], 'y' => ($position['y']-1)])) && $s3->isStone($color) && (sizeof($s3->getLiberties($this)) > 1))
+            || (($s4 = $this->getStone(['x' => $position['x'], 'y' => ($position['y']+1)])) && $s4->isStone($color) && (sizeof($s4->getLiberties($this)) > 1))
+           )
+            return true;
+        else return false;
+    }
+
     public function getGroupeFromPos($position) {
         // Renvoie le groupe associé à l'intersection qui se trouve à $position
         foreach ($groupes as $groupe) {
@@ -57,12 +70,12 @@ class Goban_model extends CI_model {
         return null;
     }
 
-    public function getGroupesFromLiberty($position) {
-        // Renvoie les groupes qui comptent $position comme une de leurs libertés
+    public function getGroupesFromLiberty($position, $color = null) {
+        // Renvoie les groupes (de couleur $color si fourni) qui comptent $position comme une de leurs libertés
         $ret = array();
 
         foreach ($this->groupes as $groupe) {
-            if ($groupe->hasInLiberties($position)) {
+            if ((($color == null) || ($groupe->getStones()[0]->isStone($color))) && $groupe->hasInLiberties($position)) {
                 $ret[] = $groupe;
             }
         }
@@ -99,6 +112,7 @@ class Goban_model extends CI_model {
         );
 
         // On joue la pierre
+        logGo(strtoupper($color).': Coup en ('.$position['x'].', '.$position['y'].')');
         $ret = $this->goban[$position['x']][$position['y']]->play($this, $color);
 
         if (!empty($this->groupes))

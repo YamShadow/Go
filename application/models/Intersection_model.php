@@ -26,11 +26,13 @@ class Intersection_model extends CI_model {
         if ($this->color == null) {     // Si aucune pierre n'est posée ici
             if (!$this->isKoo) {        // Si on est pas en kô
                 
+                $color == 'white' ? $counterColor = 'black' : $counterColor = 'white';
+
                 // La pierre est affectée à un groupe vide
                 $goban->addGroupe($this);
 
-                if (!empty($this->getLiberties($goban)) || !empty($this->canKill($goban))) {        // Si on a une liberté en jouant ici ou si on tue
-                    $kills = $this->canKill($goban);
+                if ($goban->arroundIsOk($this->position, $color) || !empty($this->getLiberties($goban)) || !empty($this->canKill($goban, $counterColor))) {        // Si on a une liberté en jouant ici ou si on tue ou si une des pierres qui nous entoure est de notre couleur et nous apporte des libertés supplémentaires
+                    $kills = $this->canKill($goban, $counterColor);
 
                     // La pierre est jouée
                     $ret['put'] = $this->position;
@@ -38,7 +40,7 @@ class Intersection_model extends CI_model {
 
                     // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
                     // On cherche les groupes autour de la pierre par rapport à sa position
-                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color))
+                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color)) 
                         $goban->merge($this->groupe, $s->getGroup());
 
                     if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']])) && $s->isStone($color))
@@ -71,7 +73,7 @@ class Intersection_model extends CI_model {
                     }
 
                     // Ajouter les pierres tuées au compteur du joueur
-                    if ($color == 'blanc')
+                    if ($color == 'white')
                         $_SESSION['pierreJ2'] += $deathCounter;
                     else
                         $_SESSION['pierreJ1'] += $deathCounter;
@@ -148,11 +150,11 @@ class Intersection_model extends CI_model {
         return $libertes;
     }
 
-    public function canKill(Goban_model $goban) {
-        // Renvoie les groupes que peut tuer la pierre en étant jouée ici
+    public function canKill(Goban_model $goban, $color) {
+        // Renvoie les groupes de couleur $color que peut tuer la pierre en étant jouée ici
         $ret = array();
 
-        $groupesWithThatLiberty = $goban->getGroupesFromLiberty($this->position);
+        $groupesWithThatLiberty = $goban->getGroupesFromLiberty($this->position, $color);
 
         foreach($groupesWithThatLiberty as $groupe) {
             // Si le groupe n'a qu'une liberté, c'est que c'est celle-ci donc que ça peut tuer

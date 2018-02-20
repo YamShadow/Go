@@ -1,7 +1,7 @@
 <main>
     <div>
         <p>
-            <i class="fa fa-circle black" aria-hidden="true"></i> Pierres capturées : <span id="score-j1">0</span>
+            <i class="fa fa-circle black" aria-hidden="true"></i> Pierre(s) capturée(s) : <span id="score-j1">0</span>
         </p>
     </div>
 
@@ -27,7 +27,7 @@
 
     <div>
         <p>
-            <i class="fa fa-circle white" aria-hidden="true"></i> Pierre capturées : <span id="score-j2">0</span>
+            <i class="fa fa-circle white" aria-hidden="true"></i> Pierre(s) capturée(s) : <span id="score-j2">0</span>
         </p>
     </div>
 </main>

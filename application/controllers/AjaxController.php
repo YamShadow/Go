@@ -14,9 +14,7 @@ class AjaxController extends CI_Controller {
 	public function index() {
 		// Appeler play avec $pos et $color
 		$pos = $this->input->post('pos', true);
-		logGo('[AJAX] position du coup '.$pos);
 		$color = $this->input->post('player', true);
-		logGo('[AJAX] Joué par '.$color);
 
 		if ($pos != null && $color != null)
 			$ret = $this->partie->play($pos, $color);
