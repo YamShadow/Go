@@ -58,7 +58,7 @@ class Intersection_model extends CI_model {
                     foreach ($kills as $groupToKill) {
                         $deathCounter += $groupToKill->getStoneNbr();
                         $ret['remove'] = array_merge($ret['remove'], $groupToKill->getAllPositions());
-                        $groupToKill->die();
+                        $goban->deleteGroupe($groupToKill);
                     }
 
                     // Virer tous les autres kô précédents s'il y avait

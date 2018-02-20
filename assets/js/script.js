@@ -33,7 +33,7 @@ $(function () {
                     }
 
                     if ('remove' in data) {
-                        for (var stone in data.remove) {
+                        for (var stone of data.remove) {
                             msg += 'Removed: ('+stone.x+', '+stone.y+')<br>';
                             removeStone(stone.x, stone.y);
                         }

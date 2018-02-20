@@ -79,9 +79,8 @@ class Groupe_model {
     }
 
     public function die() {
-        foreach ($pierres as $p) {
+        foreach ($this->pierres as $p) {
             $p->die();
         }
-        $this->__destruct();
     }
 }

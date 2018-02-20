@@ -124,4 +124,9 @@ class Goban_model extends CI_model {
         
         return $ret;
     }
+
+    public function deleteGroupe(Groupe_model $groupe) {
+        $groupe->die();
+        unset($this->groupes[array_search($groupe, $this->groupes)]);
+    }
 }
