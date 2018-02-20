@@ -19,7 +19,7 @@ class IndexController extends CI_Controller {
 	public function index()
 	{
 
-        $this->go->log('test');
+        logGo('Bonjour sur le go');
 		$this->load->view('base', array(
             'header' => array(
                 'css' => array(
@@ -45,6 +45,7 @@ class IndexController extends CI_Controller {
         if (isset($size) && in_array($size, ['9', '13']))
             $renderSize = $size;
         else $renderSize = 19;
+        logGo('Génération d\'un goban de '.$size.' par '.$size);
         $this->partie->setSessionInit($renderSize);
 
 		$this->load->view('base', array(
