@@ -41,6 +41,8 @@ $(function () {
                     switchPlayer();
                 } else 
                     putError(data);
+
+                    putInfo(data);
             },
             error: function(statut, erreur) {
                 putError(erreur);

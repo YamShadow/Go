@@ -39,7 +39,7 @@ class Intersection_model extends CI_model {
 
                     // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
                     // On cherche les groupes autour de la pierre par rapport à sa position
-                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color))
+                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color)) 
                         $goban->merge($this->groupe, $s->getGroup());
 
                     if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']])) && $s->isStone($color))
@@ -158,7 +158,7 @@ class Intersection_model extends CI_model {
 
         foreach($groupesWithThatLiberty as $groupe) {
             // Si le groupe n'a qu'une liberté, c'est que c'est celle-ci donc que ça peut tuer
-            if (sizeof($groupe->getLiberties) == 1) $ret[] = $groupe;
+            if (sizeof($groupe->getLiberties()) == 1) $ret[] = $groupe;
         }
 
         return $ret;
