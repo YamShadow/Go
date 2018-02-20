@@ -39,16 +39,16 @@ class Intersection_model extends CI_model {
 
                     // On merge la pierre avec les autres groupes qui l'entourent et qui ont la même couleur
                     // On cherche les groupes autour de la pierre par rapport à sa position
-                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']]))->isStone($color))
+                    if (($s = $goban->getStone(['x' => ($this->position['x']-1), 'y' => $this->position['y']])) && $s->isStone($color))
                         $goban->merge($this->groupe, $s->getGroup());
 
-                    if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']]))->isStone($color))
+                    if (($s = $goban->getStone(['x' => ($this->position['x']+1), 'y' => $this->position['y']])) && $s->isStone($color))
                         $goban->merge($this->groupe, $s->getGroup());
 
-                    if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']-1)]))->isStone($color))
+                    if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']-1)])) && $s->isStone($color))
                         $goban->merge($this->groupe, $s->getGroup());
                     
-                    if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']+1)]))->isStone($color))
+                    if (($s = $goban->getStone(['x' => $this->position['x'], 'y' => ($this->position['y']+1)])) && $s->isStone($color))
                         $goban->merge($this->groupe, $s->getGroup());
 
 
@@ -75,7 +75,7 @@ class Intersection_model extends CI_model {
                         $_SESSION['pierreJ2'] += $deathCounter;
                     else
                         $_SESSION['pierreJ1'] += $deathCounter;
-                        
+
                     $ret['count_black'] = $_SESSION['pierreJ1'];
                     $ret['count_white'] = $_SESSION['pierreJ2'];
                     
