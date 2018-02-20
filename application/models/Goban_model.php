@@ -83,14 +83,12 @@ class Goban_model extends CI_model {
         
         
         if (isset($ret['put'])) {
-            // $this->session->goban[$ret['put']['x']][$ret['put']['y']]['color'] = $color;
-            // Has no effect ! TODO : Débugger
+            $_SESSION['goban'][$ret['put']['x']][$ret['put']['y']]['color'] = $color;
         }
 
         if (isset($ret['remove'])) {
             foreach($ret['remove'] as $remove) {
-                // $this->session->goban[$remove['x']][$remove['y']]['color'] = null;
-                // Has no effect ! TODO : Débugger
+                $_SESSION['goban'][$remove['x']][$remove['y']]['color'] = null;
             }
         }
 
