@@ -1,8 +1,9 @@
 $(function () {
     var player = true;
 
-    $('.pre-stone').on('click', function (e) {
-        play(e.currentTarget.id);
+    $(document).on('click', '.pre-stone', function () {
+        var pos = $(this).closest('.case').attr('id');
+        play(pos);
     });
 
     function play(pos) {
@@ -40,6 +41,13 @@ $(function () {
 
                     if ('koo' in data) {
                         isKoo(data.koo.x, data.koo.y);
+                    }
+
+                    if('count_black' in data) {
+                        $('#score-j1').html(data.count_black);
+                    } 
+                    if('count_white' in data) {
+                        $('#score-j2').html(data.count_white);
                     }
 
                     putSuccess(msg);
@@ -109,13 +117,11 @@ $(function () {
 
     function playStone(x, y) {
         var pos = '#'+x+'_'+y+' i';
-        console.log(pos);
         $(pos).toggleClass('pre-stone stone');
     }
     
     function removeStone(x, y) {
         var pos = '#'+x+'_'+y+' i';
-        console.log(pos);
         $(pos).toggleClass('pre-stone stone');
         $(pos).removeClass('black white');
         
